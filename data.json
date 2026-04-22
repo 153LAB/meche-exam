@@ -204,25 +204,18 @@
     {"id":197,"year":2023,"round":2,"format":"single","subject":"동력전달장치","parts":[],"image":null},
     {"id":198,"year":2023,"round":4,"format":"single","subject":"드릴지그","parts":[],"image":null},
     {"id":199,"year":2023,"round":4,"format":"single","subject":"기어풀리드라이브","parts":[],"image":null},
-    {"id":200,"year":2023,"round":4,"format":"single","subject":"바이스","parts":[],"image":null},
-    {"id":201,"year":2024,"round":1,"format":"single","subject":"동력전달장치","parts":["본체","스프기어"],"image":null},
-    {"id":202,"year":2024,"round":1,"format":"single","subject":"드릴지그","parts":["플래퍼","부시"],"image":null},
-    {"id":203,"year":2024,"round":1,"format":"single","subject":"공기압축기","parts":["축","베어링커버"],"image":null},
-    {"id":204,"year":2024,"round":1,"format":"single","subject":"동력전달장치","parts":["V벨트","베어링커버"],"image":null},
-    {"id":205,"year":2024,"round":1,"format":"single","subject":"리밍지그","parts":["베이스","슬라이더"],"image":null},
-    {"id":206,"year":2024,"round":1,"format":"single","subject":"동력전달장치","parts":["축","축"],"image":null},
-    {"id":207,"year":2024,"round":1,"format":"single","subject":"동력전달장치","parts":["축","베어링커버"],"image":null},
-    {"id":208,"year":2024,"round":1,"format":"single","subject":"요동장치","parts":["본체","전"],"image":null},
-    {"id":209,"year":2024,"round":2,"format":"single","subject":"기어박스","parts":["본체","스프기어"],"image":null},
-    {"id":210,"year":2024,"round":2,"format":"single","subject":"스윙레버","parts":["커버","플레이트"],"image":null},
-    {"id":211,"year":2024,"round":2,"format":"single","subject":"기어링크","parts":[],"image":null},
-    {"id":212,"year":2024,"round":2,"format":"single","subject":"바이스","parts":["서포트","판"],"image":null},
-    {"id":213,"year":2024,"round":2,"format":"single","subject":"동력전달장치","parts":["축","축"],"image":null},
-    {"id":214,"year":2024,"round":2,"format":"single","subject":"클램프","parts":["서포트","나사축"],"image":null},
-    {"id":215,"year":2024,"round":2,"format":"single","subject":"C형 클램프","parts":["베이스","고정초"],"image":null},
-    {"id":216,"year":2024,"round":2,"format":"single","subject":"로타리 오일펌프","parts":[],"image":null},
-    {"id":217,"year":2024,"round":2,"format":"single","subject":"동력전달장치","parts":[],"image":null},
-    {"id":218,"year":2024,"round":2,"format":"single","subject":"바이스","parts":["축","조"],"image":null}
+    {"id":200,"year":2023,"round":4,"format":"single","subject":"바이스","parts":[],"image":null}
   ],
-  "ab_records": []
+  "ab_records": [
+    {"id":1,"year":2024,"round":1,"seq":1,"a_subject":"동력전달장치","a_parts":["본체","스퍼기어"],"a_image":null,"a_memo":"","b_subject":"드릴지그","b_parts":["플레이트","부시"],"b_image":null,"b_memo":""},
+    {"id":2,"year":2024,"round":1,"seq":2,"a_subject":"공기압축기","a_parts":["축","베어링커버"],"a_image":null,"a_memo":"","b_subject":"클램프","b_parts":["V블록","브라켓"],"b_image":null,"b_memo":""},
+    {"id":3,"year":2024,"round":1,"seq":3,"a_subject":"동력전달장치","a_parts":["축","베어링커버"],"a_image":null,"a_memo":"","b_subject":"리밍지그","b_parts":["베이스","슬라이더"],"b_image":null,"b_memo":""},
+    {"id":4,"year":2024,"round":1,"seq":4,"a_subject":"동력전달장치","a_parts":["본체","축"],"a_image":null,"a_memo":"","b_subject":"클램프","b_parts":["이동조","가이드부시"],"b_image":null,"b_memo":""},
+    {"id":5,"year":2024,"round":1,"seq":5,"a_subject":"동력전달장치","a_parts":["축","스퍼기어"],"a_image":null,"a_memo":"","b_subject":"요동장치","b_parts":["본체","핀"],"b_image":null,"b_memo":""},
+    {"id":6,"year":2024,"round":2,"seq":1,"a_subject":"기어박스","a_parts":["본체","스퍼기어"],"a_image":null,"a_memo":"","b_subject":"스윙레버","b_parts":["커버","플레이트"],"b_image":null,"b_memo":""},
+    {"id":7,"year":2024,"round":2,"seq":2,"a_subject":"기어펌프","a_parts":["본체","기어축"],"a_image":null,"a_memo":"","b_subject":"바이스","b_parts":["서포트","판"],"b_image":null,"b_memo":""},
+    {"id":8,"year":2024,"round":2,"seq":3,"a_subject":"동력전달장치","a_parts":["본체","축"],"a_image":null,"a_memo":"","b_subject":"클램프","b_parts":["서포트","나사축"],"b_image":null,"b_memo":""},
+    {"id":9,"year":2024,"round":2,"seq":4,"a_subject":"로터리 오일펌프","a_parts":["축","스퍼기어"],"a_image":null,"a_memo":"","b_subject":"C형 클램프","b_parts":["베이스","고정조"],"b_image":null,"b_memo":""},
+    {"id":10,"year":2024,"round":2,"seq":5,"a_subject":"동력전달장치","a_parts":["축","베어링커버"],"a_image":null,"a_memo":"","b_subject":"바이스","b_parts":["본체","조"],"b_image":null,"b_memo":""}
+  ]
 }
