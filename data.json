@@ -207,15 +207,18 @@
     {"id":200,"year":2023,"round":4,"format":"single","subject":"바이스","parts":[],"image":null}
   ],
   "ab_records": [
-    {"id":1,"year":2024,"round":1,"seq":1,"a_subject":"동력전달장치","a_parts":["본체","스퍼기어"],"a_image":null,"a_memo":"","b_subject":"드릴지그","b_parts":["플레이트","부시"],"b_image":null,"b_memo":""},
+    {"id":1,"year":2024,"round":1,"seq":1,"a_subject":"동력전달장치","a_parts":["본체","스퍼기어"],"a_image":null,"a_memo":"","b_subject":"드릴지그","b_parts":["부시홀더","고정부시"],"b_image":null,"b_memo":""},
     {"id":2,"year":2024,"round":1,"seq":2,"a_subject":"공기압축기","a_parts":["축","베어링커버"],"a_image":null,"a_memo":"","b_subject":"클램프","b_parts":["V블록","브라켓"],"b_image":null,"b_memo":""},
-    {"id":3,"year":2024,"round":1,"seq":3,"a_subject":"동력전달장치","a_parts":["축","베어링커버"],"a_image":null,"a_memo":"","b_subject":"리밍지그","b_parts":["베이스","슬라이더"],"b_image":null,"b_memo":""},
-    {"id":4,"year":2024,"round":1,"seq":4,"a_subject":"동력전달장치","a_parts":["본체","축"],"a_image":null,"a_memo":"","b_subject":"클램프","b_parts":["이동조","가이드부시"],"b_image":null,"b_memo":""},
+    {"id":3,"year":2024,"round":1,"seq":3,"a_subject":"축받침장치","a_parts":["베어링커버","축"],"a_image":null,"a_memo":"","b_subject":"리밍지그","b_parts":["베이스","슬라이더"],"b_image":null,"b_memo":""},
+    {"id":4,"year":2024,"round":1,"seq":4,"a_subject":"동력전달장치","a_parts":["본체","축"],"a_image":null,"a_memo":"","b_subject":"클램프","b_parts":["이동조","칼라"],"b_image":null,"b_memo":""},
     {"id":5,"year":2024,"round":1,"seq":5,"a_subject":"동력전달장치","a_parts":["축","스퍼기어"],"a_image":null,"a_memo":"","b_subject":"요동장치","b_parts":["본체","핀"],"b_image":null,"b_memo":""},
-    {"id":6,"year":2024,"round":2,"seq":1,"a_subject":"기어박스","a_parts":["본체","스퍼기어"],"a_image":null,"a_memo":"","b_subject":"스윙레버","b_parts":["커버","플레이트"],"b_image":null,"b_memo":""},
-    {"id":7,"year":2024,"round":2,"seq":2,"a_subject":"기어펌프","a_parts":["본체","기어축"],"a_image":null,"a_memo":"","b_subject":"바이스","b_parts":["서포트","판"],"b_image":null,"b_memo":""},
-    {"id":8,"year":2024,"round":2,"seq":3,"a_subject":"동력전달장치","a_parts":["본체","축"],"a_image":null,"a_memo":"","b_subject":"클램프","b_parts":["서포트","나사축"],"b_image":null,"b_memo":""},
+    {"id":6,"year":2024,"round":2,"seq":1,"a_subject":"기어박스","a_parts":["본체","스퍼기어"],"a_image":null,"a_memo":"","b_subject":"스윙레버","b_parts":["레버","커버"],"b_image":null,"b_memo":""},
+    {"id":7,"year":2024,"round":2,"seq":2,"a_subject":"바이스","a_parts":["서포트","브라켓"],"a_image":null,"a_memo":"","b_subject":"기어펌프","b_parts":["본체","기어축"],"b_image":null,"b_memo":""},
+    {"id":8,"year":2024,"round":2,"seq":3,"a_subject":"동력전달장치","a_parts":["본체","축"],"a_image":null,"a_memo":"","b_subject":"밀링클램프","b_parts":["서포트","나사축"],"b_image":null,"b_memo":""},
     {"id":9,"year":2024,"round":2,"seq":4,"a_subject":"로터리 오일펌프","a_parts":["축","스퍼기어"],"a_image":null,"a_memo":"","b_subject":"C형 클램프","b_parts":["베이스","고정조"],"b_image":null,"b_memo":""},
-    {"id":10,"year":2024,"round":2,"seq":5,"a_subject":"동력전달장치","a_parts":["축","베어링커버"],"a_image":null,"a_memo":"","b_subject":"바이스","b_parts":["본체","조"],"b_image":null,"b_memo":""}
+    {"id":10,"year":2024,"round":2,"seq":5,"a_subject":"동력전달장치","a_parts":["축","베어링커버"],"a_image":null,"a_memo":"","b_subject":"바이스","b_parts":["본체","조"],"b_image":null,"b_memo":""},
+    {"id":11,"year":2024,"round":3,"seq":1,"a_subject":"동력전달장치","a_parts":["본체","커버"],"a_image":null,"a_memo":"","b_subject":"드릴지그","b_parts":["핸들","플레이트 서포터"],"b_image":null,"b_memo":""},
+    {"id":12,"year":2024,"round":3,"seq":2,"a_subject":"편심구동장치","a_parts":["본체","가이드부시"],"a_image":null,"a_memo":"","b_subject":"드릴지그","b_parts":[],"b_image":null,"b_memo":""},
+    {"id":13,"year":2024,"round":3,"seq":3,"a_subject":"벨트긴장장치","a_parts":["본체","간격링"],"a_image":null,"a_memo":"","b_subject":"드릴지그","b_parts":[],"b_image":null,"b_memo":""}
   ]
 }
