@@ -453,7 +453,7 @@ function buildYearSelector() {
   const years = getYears();
   if (years.length === 0) return;
   const html = years.map(y => {
-    const isNew = y >= 2025;
+    const isNew = y >= 2024;
     return `<button class="year-btn ${isNew ? 'new-format' : ''}" onclick="selectYear(${y})" id="ybtn-${y}">${y}년${isNew ? ' ✦' : ''}</button>`;
   }).join('');
   document.getElementById('yearSelector').innerHTML = html;
@@ -470,7 +470,7 @@ function selectYear(year) {
 
 // ── 연도별 출제현황 렌더 ─────────────────────────────────────
 function renderYearly(year) {
-  const isNew = year >= 2025;
+  const isNew = year >= 2024;
   const rounds = isNew ? [1, 2, 3] : [1, 2, 3, 4];
   let html = '';
 
@@ -490,13 +490,19 @@ function renderYearly(year) {
           </div>
           <div class="round-body">`;
         items.forEach(item => {
+          const seq = item.seq ? `${item.seq}일차` : '';
           const aImg = item.a_image ? `<img src="${item.a_image}" alt="${item.a_subject}" onclick="openModal('${item.a_subject} 도면','${item.a_image}')">` : '<div class="ab-img-placeholder">도면 없음</div>';
           const bImg = item.b_image ? `<img src="${item.b_image}" alt="${item.b_subject}" onclick="openModal('${item.b_subject} 도면','${item.b_image}')">` : '<div class="ab-img-placeholder">도면 없음</div>';
           const aParts = (item.a_parts || []).map(p => `<span class="ab-part">${p}</span>`).join('');
           const bParts = (item.b_parts || []).map(p => `<span class="ab-part">${p}</span>`).join('');
-          html += `<div class="ab-grid" style="margin-bottom:12px">
+          html += `<div style="margin-bottom:16px">
+            ${seq ? `<div style="font-size:13px;font-weight:700;color:var(--text3);margin-bottom:8px;padding-left:2px">── ${seq}</div>` : ''}
+            <div class="ab-grid">
             <div class="ab-card">
-              <div class="ab-head ab-head-a"><span class="ab-label ab-label-a">A</span><span class="ab-subject">${item.a_subject || '—'}</span></div>
+              <div class="ab-head ab-head-a">
+                <span class="ab-label ab-label-a">동력</span>
+                <span class="ab-subject">${item.a_subject || '—'}</span>
+              </div>
               <div class="ab-body">
                 <div class="ab-parts">${aParts || '<span style="color:var(--text3);font-size:13px">부품 정보 없음</span>'}</div>
                 <div class="ab-img-wrap">${aImg}</div>
@@ -504,14 +510,17 @@ function renderYearly(year) {
               </div>
             </div>
             <div class="ab-card">
-              <div class="ab-head ab-head-b"><span class="ab-label ab-label-b">B</span><span class="ab-subject">${item.b_subject || '—'}</span></div>
+              <div class="ab-head ab-head-b">
+                <span class="ab-label ab-label-b">치공구</span>
+                <span class="ab-subject">${item.b_subject || '—'}</span>
+              </div>
               <div class="ab-body">
                 <div class="ab-parts">${bParts || '<span style="color:var(--text3);font-size:13px">부품 정보 없음</span>'}</div>
                 <div class="ab-img-wrap">${bImg}</div>
                 ${item.b_memo ? `<div class="ab-memo">${item.b_memo}</div>` : ''}
               </div>
             </div>
-          </div>`;
+          </div></div>`;
         });
         html += `</div></div>`;
       });
