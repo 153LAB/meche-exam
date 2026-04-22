@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>일반기계기사 실기 작업형 출제현황</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* ── 보라-파랑 그라디언트 테마 ── */
+    --bg:        #f0eeff;
+    --bg2:       #ffffff;
+    --bg3:       #ede8ff;
+    --border:    #d4caf5;
+    --border2:   #e8e3f8;
+    --text:      #1e1040;
+    --text2:     #4a3f72;
+    --text3:     #8b80b0;
+    --accent:    #6c4fe3;
+    --accent2:   #5438c4;
+    --accent-bg: #ede8ff;
+    --accent-light: #a78bfa;
+    --header-from: #5b4fcf;
+    --header-to:   #9b59d0;
+    --green:     #059669;
+    --green-bg:  #d1fae5;
+    --teal:      #0891b2;
+    --teal-bg:   #cffafe;
+    --red:       #dc2626;
+    --gold:      #b45309;
+    --silver:    #6b7280;
+    --bronze:    #92400e;
+    --shadow:    0 2px 8px rgba(108,79,227,0.10), 0 4px 20px rgba(108,79,227,0.07);
+    --shadow-sm: 0 1px 4px rgba(108,79,227,0.08);
+    --radius:    12px;
+    --radius-sm: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Pretendard', 'Malgun Gothic', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── 스크롤바 ── */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg3); }
+  ::-webkit-scrollbar-thumb { background: var(--accent-light); border-radius: 3px; }
+
+  /* ── 헤더 ── */
+  header {
+    background: linear-gradient(135deg, var(--header-from) 0%, var(--header-to) 100%);
+    padding: 30px 24px 24px;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 4px 20px rgba(91,79,207,0.30);
+  }
+  .header-inner { max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 12px; }
+  .header-eyebrow { font-size: 12px; letter-spacing: 3px; color: #d8c8ff; margin-bottom: 5px; text-transform: uppercase; font-weight: 600; }
+  header h1 { font-size: 28px; font-weight: 800; color: #ffffff; letter-spacing: -0.5px; text-shadow: 0 1px 4px rgba(0,0,0,0.15); }
+  .header-meta { font-size: 13px; color: #c4b0f0; margin-top: 4px; }
+  .header-stats { display: flex; gap: 16px; }
+  .hstat { text-align: center; background: rgba(255,255,255,0.15); border-radius: 10px; padding: 10px 18px; border: 1px solid rgba(255,255,255,0.25); backdrop-filter: blur(4px); }
+  .hstat-val { font-size: 24px; font-weight: 800; color: #ffffff; display: block; }
+  .hstat-label { font-size: 11px; color: #d8c8ff; letter-spacing: 1px; font-weight: 500; }
+
+  /* ── 탭바 ── */
+  .tab-bar { background: var(--bg2); border-bottom: 2px solid var(--border); position: sticky; top: 100px; z-index: 99; box-shadow: 0 2px 8px rgba(108,79,227,0.06); }
+  .tab-inner { max-width: 1000px; margin: 0 auto; display: flex; padding: 0 24px; gap: 2px; }
+  .tab-btn {
+    padding: 14px 24px; font-size: 15px; font-weight: 500;
+    font-family: 'Pretendard', sans-serif;
+    background: transparent; color: var(--text3);
+    border: none; border-bottom: 3px solid transparent; margin-bottom: -2px;
+    cursor: pointer; transition: all 0.15s; white-space: nowrap;
+  }
+  .tab-btn:hover { color: var(--accent); background: var(--accent-bg); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 700; }
+
+  /* ── 바디 ── */
+  main { max-width: 1000px; margin: 0 auto; padding: 28px 24px 60px; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ── 카드 ── */
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-sm);
+  }
+  .card-head {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    background: var(--accent-bg);
+  }
+  .card-title { font-size: 13px; font-weight: 700; color: var(--accent2); letter-spacing: 1px; text-transform: uppercase; }
+  .card-sub { font-size: 13px; color: var(--text3); }
+
+  /* ── 요약 카드 ── */
+  .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 22px; }
+  .summary-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 20px 22px;
+    box-shadow: var(--shadow-sm);
+    position: relative; overflow: hidden;
+  }
+  .summary-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--header-from), var(--header-to));
+  }
+  .summary-label { font-size: 12px; color: var(--text3); letter-spacing: 1.5px; margin-bottom: 8px; text-transform: uppercase; font-weight: 600; }
+  .summary-val { font-size: 28px; font-weight: 800; color: var(--accent2); }
+  .summary-sub { font-size: 13px; color: var(--text3); margin-top: 4px; }
+
+  /* ── 바 차트 ── */
+  .bar-list { padding: 20px 22px; }
+  .bar-row { margin-bottom: 14px; }
+  .bar-meta { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 15px; }
+  .bar-left { display: flex; align-items: center; gap: 10px; }
+  .bar-rank { display: inline-block; width: 26px; text-align: center; font-size: 13px; font-weight: 800; }
+  .rank-1 { color: var(--gold); }
+  .rank-2 { color: var(--silver); }
+  .rank-3 { color: var(--bronze); }
+  .rank-n { color: var(--text3); }
+  .bar-name { color: var(--text); font-weight: 500; font-size: 15px; }
+  .bar-name.bold { font-weight: 700; }
+  .bar-count { color: var(--accent); font-weight: 800; font-size: 15px; }
+  .bar-track { height: 9px; background: var(--bg3); border-radius: 5px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 5px; transition: width 0.7s ease; }
+  .fill-gold   { background: linear-gradient(90deg, #f59e0b, #d97706); }
+  .fill-silver { background: linear-gradient(90deg, #9ca3af, #6b7280); }
+  .fill-bronze { background: linear-gradient(90deg, #d97706, #b45309); }
+  .fill-blue   { background: linear-gradient(90deg, var(--header-from), var(--header-to)); }
+  .fill-blue2  { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+  .fill-dim    { background: #c4b5fd; }
+
+  /* ── 테이블 ── */
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  thead tr { background: var(--accent-bg); }
+  th { padding: 12px 18px; text-align: left; color: var(--accent2); font-size: 13px; font-weight: 700; letter-spacing: 0.5px; border-bottom: 2px solid var(--border); white-space: nowrap; }
+  td { padding: 12px 18px; border-bottom: 1px solid var(--border2); vertical-align: middle; color: var(--text); font-size: 15px; }
+  tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: var(--accent-bg); }
+  tbody tr { cursor: default; transition: background 0.1s; }
+
+  /* ── 뱃지 ── */
+  .badge {
+    display: inline-block; padding: 4px 13px; border-radius: 20px;
+    font-size: 13px; font-weight: 600; white-space: nowrap;
+  }
+  .badge-blue   { background: #ede8ff; color: var(--accent2); border: 1px solid #c4b5fd; }
+  .badge-green  { background: var(--green-bg); color: var(--green); border: 1px solid #6ee7b7; }
+  .badge-purple { background: #faf5ff; color: #7c3aed; border: 1px solid #ddd6fe; }
+  .badge-yellow { background: #fffbeb; color: #b45309; border: 1px solid #fde68a; }
+  .badge-gray   { background: var(--bg3); color: var(--text2); border: 1px solid var(--border); }
+
+  /* ── 연도 버튼 ── */
+  .year-selector { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+  .year-btn {
+    padding: 8px 20px; font-size: 14px; font-weight: 500;
+    font-family: 'Pretendard', sans-serif;
+    background: var(--bg2); color: var(--text2);
+    border: 1px solid var(--border); border-radius: 24px; cursor: pointer; transition: all 0.15s;
+    box-shadow: var(--shadow-sm);
+  }
+  .year-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
+  .year-btn.active { background: linear-gradient(135deg, var(--header-from), var(--header-to)); color: #fff; border-color: transparent; font-weight: 700; box-shadow: 0 3px 10px rgba(108,79,227,0.35); }
+  .year-btn.new-format { border-color: var(--green); color: var(--green); }
+  .year-btn.new-format.active { background: var(--green); border-color: var(--green); color: #fff; box-shadow: 0 3px 10px rgba(5,150,105,0.3); }
+
+  /* ── 회차 섹션 ── */
+  .round-section { margin-bottom: 18px; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); }
+  .round-head { padding: 13px 20px; background: linear-gradient(135deg, var(--header-from), var(--header-to)); display: flex; justify-content: space-between; align-items: center; }
+  .round-title { font-size: 16px; font-weight: 700; color: #ffffff; }
+  .round-count { font-size: 13px; color: #d8c8ff; font-weight: 500; }
+  .round-body { padding: 16px 18px; background: var(--bg2); }
+
+  /* ── 단일 출제 카드 ── */
+  .single-list { display: flex; flex-direction: column; gap: 8px; }
+  .single-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 12px 16px; background: var(--bg); border-radius: var(--radius-sm);
+    border: 1px solid var(--border2); transition: all 0.12s;
+  }
+  .single-item:hover { background: var(--accent-bg); border-color: var(--border); transform: translateX(3px); }
+  .single-num { font-size: 13px; color: var(--text3); min-width: 24px; text-align: center; font-weight: 700; }
+  .single-subject { font-size: 15px; font-weight: 600; min-width: 140px; }
+  .single-parts { font-size: 14px; color: var(--text2); flex: 1; }
+
+  /* ── A/B 카드 ── */
+  .ab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .ab-card { background: var(--bg2); border-radius: var(--radius-sm); border: 1px solid var(--border); overflow: hidden; box-shadow: var(--shadow-sm); }
+  .ab-head { padding: 12px 16px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--border); }
+  .ab-head-a { background: linear-gradient(135deg, #ede8ff, #ddd6fe); }
+  .ab-head-b { background: linear-gradient(135deg, #d1fae5, #a7f3d0); }
+  .ab-label { font-size: 22px; font-weight: 800; }
+  .ab-label-a { color: var(--accent); }
+  .ab-label-b { color: var(--green); }
+  .ab-subject { font-size: 16px; font-weight: 700; color: var(--text); }
+  .ab-body { padding: 14px 16px; }
+  .ab-parts { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  .ab-part { font-size: 13px; padding: 4px 12px; background: var(--bg3); color: var(--text2); border-radius: 20px; border: 1px solid var(--border); font-weight: 500; }
+  .ab-img-wrap { width: 100%; aspect-ratio: 400/280; background: var(--bg3); border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border); cursor: pointer; transition: all 0.15s; }
+  .ab-img-wrap:hover { opacity: 0.88; box-shadow: 0 4px 12px rgba(108,79,227,0.15); }
+  .ab-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+  .ab-img-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--text3); background: var(--bg3); }
+  .ab-memo { font-size: 13px; color: var(--text2); margin-top: 10px; line-height: 1.6; padding: 8px 12px; background: var(--accent-bg); border-radius: var(--radius-sm); border-left: 3px solid var(--accent); }
+
+  /* ── 모달 ── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(30,16,64,0.7); z-index: 1000;
+    align-items: center; justify-content: center; padding: 20px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-box { background: var(--bg2); border-radius: var(--radius); border: 1px solid var(--border); max-width: 860px; width: 100%; max-height: 90vh; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 12px 48px rgba(108,79,227,0.25); }
+  .modal-head { padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: var(--accent-bg); }
+  .modal-title { font-size: 17px; font-weight: 700; color: var(--text); }
+  .modal-close { background: none; border: 1px solid var(--border); color: var(--text2); cursor: pointer; font-size: 18px; line-height: 1; padding: 5px 10px; border-radius: 8px; transition: all 0.1s; font-family: 'Pretendard', sans-serif; }
+  .modal-close:hover { background: var(--red); border-color: var(--red); color: #fff; }
+  .modal-body { flex: 1; overflow: auto; padding: 20px; display: flex; align-items: center; justify-content: center; background: var(--bg); }
+  .modal-body img { max-width: 100%; max-height: 70vh; object-fit: contain; border-radius: var(--radius-sm); box-shadow: var(--shadow); }
+
+  /* ── 검색 ── */
+  .search-wrap { margin-bottom: 22px; position: relative; }
+  .search-input {
+    width: 100%; padding: 14px 20px 14px 48px;
+    background: var(--bg2); border: 2px solid var(--border);
+    border-radius: var(--radius); color: var(--text); font-size: 16px;
+    font-family: 'Pretendard', sans-serif; outline: none; transition: all 0.15s;
+    box-shadow: var(--shadow-sm);
+  }
+  .search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(108,79,227,0.12); }
+  .search-icon { position: absolute; left: 17px; top: 50%; transform: translateY(-50%); color: var(--text3); font-size: 17px; pointer-events: none; }
+  .search-results { display: flex; flex-direction: column; gap: 12px; }
+  .search-result-item { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; box-shadow: var(--shadow-sm); transition: all 0.15s; }
+  .search-result-item:hover { box-shadow: var(--shadow); border-color: var(--accent-light); }
+  .search-result-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .search-result-subject { font-size: 17px; font-weight: 700; color: var(--text); }
+  .search-result-count { font-size: 15px; font-weight: 800; color: var(--accent); }
+  .search-result-list { display: flex; flex-wrap: wrap; gap: 7px; }
+  .search-tag { font-size: 13px; padding: 4px 13px; background: var(--bg3); color: var(--text2); border-radius: 20px; border: 1px solid var(--border); font-weight: 500; }
+
+  /* ── 반응형 ── */
+  @media (max-width: 640px) {
+    header { padding: 20px 16px 16px; }
+    .header-stats { gap: 8px; }
+    .hstat { padding: 8px 12px; }
+    .hstat-val { font-size: 20px; }
+    main { padding: 20px 16px 40px; }
+    .summary-grid { grid-template-columns: 1fr 1fr; }
+    .ab-grid { grid-template-columns: 1fr; }
+    header h1 { font-size: 22px; }
+    .tab-inner { padding: 0 8px; }
+    .tab-btn { padding: 11px 14px; font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 헤더 -->
+<header>
+  <div class="header-inner">
+    <div>
+      <div class="header-eyebrow">일반기계기사 실기</div>
+      <h1>작업형 출제현황</h1>
+      <div class="header-meta" id="headerMeta">데이터 로딩 중...</div>
+    </div>
+    <div class="header-stats">
+      <div class="hstat"><span class="hstat-val" id="hTotal">—</span><span class="hstat-label">총 출제</span></div>
+      <div class="hstat"><span class="hstat-val" id="hYears">—</span><span class="hstat-label">연도</span></div>
+      <div class="hstat"><span class="hstat-val" id="hSubjects">—</span><span class="hstat-label">품목</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- 탭바 -->
+<div class="tab-bar">
+  <div class="tab-inner">
+    <button class="tab-btn active" onclick="switchTab('stats')">📊 빈도 통계</button>
+    <button class="tab-btn" onclick="switchTab('yearly')">📅 연도별 현황</button>
+    <button class="tab-btn" onclick="switchTab('search')">🔍 과제 검색</button>
+  </div>
+</div>
+
+<main>
+
+  <!-- ══ 통계 탭 ══ -->
+  <div id="tab-stats" class="tab-panel active">
+    <div class="summary-grid" id="summaryGrid"></div>
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title">출제빈도 순위</span>
+        <span class="card-sub" id="topSubCount"></span>
+      </div>
+      <div class="bar-list" id="barList"></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><span class="card-title">전체 품목 순위표</span></div>
+      <div style="overflow-x:auto">
+        <table>
+          <thead><tr><th>순위</th><th>작품명</th><th>출제횟수</th><th>비율</th></tr></thead>
+          <tbody id="rankTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ 연도별 탭 ══ -->
+  <div id="tab-yearly" class="tab-panel">
+    <div class="year-selector" id="yearSelector"></div>
+    <div id="yearlyContent"></div>
+  </div>
+
+  <!-- ══ 검색 탭 ══ -->
+  <div id="tab-search" class="tab-panel">
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input class="search-input" id="searchInput" type="text" placeholder="작품명을 입력하세요 (예: 드릴지그, 클램프…)" oninput="doSearch(this.value)">
+    </div>
+    <div class="search-results" id="searchResults"></div>
+  </div>
+
+</main>
+
+<!-- 이미지 모달 -->
+<div class="modal-overlay" id="imgModal" onclick="closeModal(event)">
+  <div class="modal-box">
+    <div class="modal-head">
+      <span class="modal-title" id="modalTitle">도면</span>
+      <button class="modal-close" onclick="document.getElementById('imgModal').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body">
+      <img id="modalImg" src="" alt="도면">
+    </div>
+  </div>
+</div>
+
+<script>
+// ── 데이터 로드 ──────────────────────────────────────────────
+let DATA = { records: [], ab_records: [] };
+let activeYear = null;
+
+async function loadData() {
+  try {
+    const res = await fetch('data.json');
+    DATA = await res.json();
+  } catch(e) {
+    console.warn('data.json 로드 실패, 빈 데이터로 시작');
+  }
+  init();
+}
+
+function init() {
+  buildStats();
+  buildYearSelector();
+  updateHeader();
+}
+
+// ── 헤더 업데이트 ────────────────────────────────────────────
+function updateHeader() {
+  const total = DATA.records.length + DATA.ab_records.length * 2;
+  const years = getYears();
+  const subjects = getFreq();
+  document.getElementById('hTotal').textContent = total + '건';
+  document.getElementById('hYears').textContent = years.length + '개';
+  document.getElementById('hSubjects').textContent = subjects.length + '종';
+  document.getElementById('headerMeta').textContent =
+    `최종 업데이트: ${DATA.meta?.updated || '—'} · 2009~2024 단일과제 / 2025~ A·B 이중과제`;
+}
+
+// ── 연도 목록 ────────────────────────────────────────────────
+function getYears() {
+  const s = new Set(DATA.records.map(r => r.year));
+  DATA.ab_records.forEach(r => s.add(r.year));
+  return [...s].sort((a, b) => b - a);
+}
+
+// ── 빈도 계산 ────────────────────────────────────────────────
+function getFreq() {
+  const freq = {};
+  DATA.records.forEach(r => { freq[r.subject] = (freq[r.subject] || 0) + 1; });
+  DATA.ab_records.forEach(r => {
+    if (r.a_subject) freq[r.a_subject] = (freq[r.a_subject] || 0) + 1;
+    if (r.b_subject) freq[r.b_subject] = (freq[r.b_subject] || 0) + 1;
+  });
+  return Object.entries(freq).sort((a, b) => b[1] - a[1]).map(([subject, count], i) => ({ rank: i+1, subject, count }));
+}
+
+// ── 통계 탭 빌드 ─────────────────────────────────────────────
+function buildStats() {
+  const freq = getFreq();
+  const total = DATA.records.length + DATA.ab_records.length * 2;
+  const maxCount = freq[0]?.count || 1;
+
+  // 요약 카드
+  document.getElementById('summaryGrid').innerHTML = [
+    { label: '총 출제 기록', val: total + '건', sub: '' },
+    { label: '최다 출제', val: freq[0]?.subject || '—', sub: freq[0]?.count + '회 출제' },
+    { label: '등록 품목 수', val: freq.length + '종', sub: '2009~현재' },
+  ].map(c => `
+    <div class="summary-card">
+      <div class="summary-label">${c.label}</div>
+      <div class="summary-val">${c.val}</div>
+      ${c.sub ? `<div class="summary-sub">${c.sub}</div>` : ''}
+    </div>`).join('');
+
+  document.getElementById('topSubCount').textContent = '전체 ' + freq.length + '종';
+
+  // 바 차트
+  const barHTML = freq.slice(0, 20).map((d, i) => {
+    const fillClass = i === 0 ? 'fill-gold' : i === 1 ? 'fill-silver' : i === 2 ? 'fill-bronze' : i < 5 ? 'fill-blue' : i < 10 ? 'fill-blue2' : 'fill-dim';
+    const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : 'rank-n';
+    return `
+      <div class="bar-row">
+        <div class="bar-meta">
+          <div class="bar-left">
+            <span class="bar-rank ${rankClass}">${d.rank}</span>
+            <span class="bar-name ${i < 3 ? 'bold' : ''}">${d.subject}</span>
+          </div>
+          <span class="bar-count">${d.count}회</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill ${fillClass}" style="width:${(d.count/maxCount*100).toFixed(1)}%"></div></div>
+      </div>`;
+  }).join('');
+  document.getElementById('barList').innerHTML = barHTML;
+
+  // 전체 테이블
+  const tableHTML = freq.map((d, i) => {
+    const pct = ((d.count / total) * 100).toFixed(1);
+    const badge = badgeForSubject(d.subject);
+    const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : 'rank-n';
+    return `<tr>
+      <td><span class="bar-rank ${rankClass}" style="font-size:13px">${d.rank}</span></td>
+      <td><span class="badge ${badge}">${d.subject}</span></td>
+      <td style="font-weight:700;color:var(--text)">${d.count}회</td>
+      <td style="color:var(--text3)">${pct}%</td>
+    </tr>`;
+  }).join('');
+  document.getElementById('rankTable').innerHTML = tableHTML;
+}
+
+// ── 연도 선택기 ──────────────────────────────────────────────
+function buildYearSelector() {
+  const years = getYears();
+  if (years.length === 0) return;
+  const html = years.map(y => {
+    const isNew = y >= 2025;
+    return `<button class="year-btn ${isNew ? 'new-format' : ''}" onclick="selectYear(${y})" id="ybtn-${y}">${y}년${isNew ? ' ✦' : ''}</button>`;
+  }).join('');
+  document.getElementById('yearSelector').innerHTML = html;
+  selectYear(years[0]);
+}
+
+function selectYear(year) {
+  activeYear = year;
+  document.querySelectorAll('.year-btn').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById('ybtn-' + year);
+  if (btn) btn.classList.add('active');
+  renderYearly(year);
+}
+
+// ── 연도별 출제현황 렌더 ─────────────────────────────────────
+function renderYearly(year) {
+  const isNew = year >= 2025;
+  const rounds = isNew ? [1, 2, 3] : [1, 2, 3, 4];
+  let html = '';
+
+  if (isNew) {
+    // 25년 이후 A/B 형식
+    const yearRecs = DATA.ab_records.filter(r => r.year === year);
+    if (yearRecs.length === 0) {
+      html = `<div style="text-align:center;color:var(--text3);padding:48px;font-size:14px">아직 입력된 데이터가 없습니다.<br><span style="font-size:12px;color:var(--text3);margin-top:8px;display:block">admin.html에서 데이터를 입력해 주세요.</span></div>`;
+    } else {
+      rounds.forEach(rn => {
+        const items = yearRecs.filter(r => r.round === rn);
+        if (!items.length) return;
+        html += `<div class="round-section">
+          <div class="round-head">
+            <span class="round-title">${year}년 ${rn}회</span>
+            <span class="round-count">${items.length * 2}문항 (A·B)</span>
+          </div>
+          <div class="round-body">`;
+        items.forEach(item => {
+          const aImg = item.a_image ? `<img src="${item.a_image}" alt="${item.a_subject}" onclick="openModal('${item.a_subject} 도면','${item.a_image}')">` : '<div class="ab-img-placeholder">도면 없음</div>';
+          const bImg = item.b_image ? `<img src="${item.b_image}" alt="${item.b_subject}" onclick="openModal('${item.b_subject} 도면','${item.b_image}')">` : '<div class="ab-img-placeholder">도면 없음</div>';
+          const aParts = (item.a_parts || []).map(p => `<span class="ab-part">${p}</span>`).join('');
+          const bParts = (item.b_parts || []).map(p => `<span class="ab-part">${p}</span>`).join('');
+          html += `<div class="ab-grid" style="margin-bottom:12px">
+            <div class="ab-card">
+              <div class="ab-head ab-head-a"><span class="ab-label ab-label-a">A</span><span class="ab-subject">${item.a_subject || '—'}</span></div>
+              <div class="ab-body">
+                <div class="ab-parts">${aParts || '<span style="color:var(--text3);font-size:13px">부품 정보 없음</span>'}</div>
+                <div class="ab-img-wrap">${aImg}</div>
+                ${item.a_memo ? `<div class="ab-memo">${item.a_memo}</div>` : ''}
+              </div>
+            </div>
+            <div class="ab-card">
+              <div class="ab-head ab-head-b"><span class="ab-label ab-label-b">B</span><span class="ab-subject">${item.b_subject || '—'}</span></div>
+              <div class="ab-body">
+                <div class="ab-parts">${bParts || '<span style="color:var(--text3);font-size:13px">부품 정보 없음</span>'}</div>
+                <div class="ab-img-wrap">${bImg}</div>
+                ${item.b_memo ? `<div class="ab-memo">${item.b_memo}</div>` : ''}
+              </div>
+            </div>
+          </div>`;
+        });
+        html += `</div></div>`;
+      });
+    }
+  } else {
+    // 24년 이전 단일 형식
+    const yearRecs = DATA.records.filter(r => r.year === year);
+    if (yearRecs.length === 0) {
+      html = `<div style="text-align:center;color:var(--text3);padding:48px">해당 연도 데이터가 없습니다.</div>`;
+    } else {
+      rounds.forEach(rn => {
+        const items = yearRecs.filter(r => r.round === rn);
+        if (!items.length) return;
+        html += `<div class="round-section">
+          <div class="round-head">
+            <span class="round-title">${year}년 ${rn}회</span>
+            <span class="round-count">${items.length}문항</span>
+          </div>
+          <div class="round-body">
+            <div class="single-list">`;
+        items.forEach((item, i) => {
+          const badge = badgeForSubject(item.subject);
+          const parts = item.parts?.length ? item.parts.join(', ') : '';
+          html += `<div class="single-item">
+            <span class="single-num">${i+1}</span>
+            <span class="badge ${badge}">${item.subject}</span>
+            ${parts ? `<span class="single-parts">${parts}</span>` : ''}
+          </div>`;
+        });
+        html += `</div></div></div>`;
+      });
+    }
+  }
+
+  document.getElementById('yearlyContent').innerHTML = html;
+}
+
+// ── 검색 ─────────────────────────────────────────────────────
+function doSearch(query) {
+  const q = query.trim();
+  const container = document.getElementById('searchResults');
+  if (!q) { container.innerHTML = ''; return; }
+
+  const freq = {};
+  const occurrences = {};
+
+  DATA.records.forEach(r => {
+    if (r.subject.includes(q)) {
+      freq[r.subject] = (freq[r.subject] || 0) + 1;
+      if (!occurrences[r.subject]) occurrences[r.subject] = [];
+      occurrences[r.subject].push(`${r.year}년 ${r.round}회`);
+    }
+  });
+  DATA.ab_records.forEach(r => {
+    ['a','b'].forEach(side => {
+      const subj = r[`${side}_subject`];
+      if (subj && subj.includes(q)) {
+        freq[subj] = (freq[subj] || 0) + 1;
+        if (!occurrences[subj]) occurrences[subj] = [];
+        occurrences[subj].push(`${r.year}년 ${r.round}회 ${side.toUpperCase()}`);
+      }
+    });
+  });
+
+  const results = Object.entries(freq).sort((a, b) => b[1] - a[1]);
+  if (!results.length) {
+    container.innerHTML = `<div style="text-align:center;color:var(--text3);padding:40px;font-size:14px">검색 결과가 없습니다.</div>`;
+    return;
+  }
+
+  container.innerHTML = results.map(([subject, count]) => {
+    const badge = badgeForSubject(subject);
+    const tags = occurrences[subject].map(o => `<span class="search-tag">${o}</span>`).join('');
+    return `<div class="search-result-item">
+      <div class="search-result-head">
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="badge ${badge}">${subject}</span>
+          <span class="search-result-subject" style="font-size:14px"></span>
+        </div>
+        <span class="search-result-count">총 ${count}회 출제</span>
+      </div>
+      <div class="search-result-list">${tags}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── 탭 전환 ──────────────────────────────────────────────────
+function switchTab(name) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ── 모달 ─────────────────────────────────────────────────────
+function openModal(title, src) {
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalImg').src = src;
+  document.getElementById('imgModal').classList.add('open');
+}
+function closeModal(e) {
+  if (e.target === document.getElementById('imgModal')) {
+    document.getElementById('imgModal').classList.remove('open');
+  }
+}
+
+// ── 뱃지 색상 ────────────────────────────────────────────────
+function badgeForSubject(s) {
+  if (s === '동력전달장치') return 'badge-blue';
+  if (s.includes('드릴지그')) return 'badge-green';
+  if (s.includes('클램프')) return 'badge-purple';
+  if (s.includes('바이스')) return 'badge-yellow';
+  return 'badge-gray';
+}
+
+// ── 시작 ─────────────────────────────────────────────────────
+loadData();
+</script>
+</body>
+</html>

@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>관리자 입력 — 일반기계기사 작업형</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0d1117; --bg2:#161b22; --bg3:#21262d;
+    --border:#30363d; --border2:#21262d;
+    --text:#e6edf3; --text2:#8b949e; --text3:#6e7681;
+    --accent:#2f81f7; --accent2:#1f6feb;
+    --green:#3fb950; --yellow:#d29922;
+    --red:#f85149; --radius:10px; --radius-sm:6px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family:'Pretendard','Malgun Gothic',sans-serif; background:var(--bg); color:var(--text); font-size:14px; line-height:1.6; min-height:100vh; }
+  ::-webkit-scrollbar { width:6px; } ::-webkit-scrollbar-track { background:var(--bg); } ::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+
+  header { background:linear-gradient(180deg,#161b22 0%,#0d1117 100%); border-bottom:1px solid var(--border); padding:28px 24px 20px; }
+  .header-inner { max-width:900px; margin:0 auto; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:12px; }
+  .header-eyebrow { font-size:11px; letter-spacing:3px; color:var(--yellow); margin-bottom:5px; text-transform:uppercase; font-weight:600; }
+  header h1 { font-size:24px; font-weight:800; }
+  .header-sub { font-size:13px; color:var(--text2); margin-top:4px; }
+
+  main { max-width:900px; margin:0 auto; padding:28px 24px 60px; }
+
+  /* 섹션 타이틀 */
+  .section-title { font-size:20px; font-weight:700; margin-bottom:16px; padding-bottom:10px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:8px; }
+
+  /* 카드 */
+  .card { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; margin-bottom:20px; }
+  .card-head { padding:14px 18px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; }
+  .card-title { font-size:13px; font-weight:600; color:var(--accent); letter-spacing:1px; text-transform:uppercase; }
+  .card-body { padding:20px 18px; }
+
+  /* 폼 요소 */
+  label { display:block; font-size:12px; font-weight:600; color:var(--text2); margin-bottom:6px; letter-spacing:0.5px; }
+  label span.req { color:var(--red); margin-left:2px; }
+  .input, .select, .textarea {
+    width:100%; padding:10px 12px; background:var(--bg); border:1px solid var(--border);
+    border-radius:var(--radius-sm); color:var(--text); font-size:14px;
+    font-family:'Pretendard',sans-serif; outline:none; transition:border 0.15s;
+  }
+  .input:focus, .select:focus, .textarea:focus { border-color:var(--accent); }
+  .select { cursor:pointer; }
+  .select option { background:var(--bg2); }
+  .textarea { resize:vertical; min-height:70px; }
+  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+  .form-group { margin-bottom:14px; }
+
+  /* A/B 과제 그리드 */
+  .ab-form-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .ab-form-card { background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius); padding:16px; }
+  .ab-form-head { display:flex; align-items:center; gap:8px; margin-bottom:14px; padding-bottom:10px; border-bottom:1px solid var(--border); }
+  .ab-form-label { font-size:22px; font-weight:800; }
+  .ab-label-a { color:#2f81f7; }
+  .ab-label-b { color:#3fb950; }
+  .ab-form-title { font-size:15px; font-weight:600; color:var(--text); }
+
+  /* 부품 입력 */
+  .parts-wrap { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:8px; }
+  .part-tag { display:flex; align-items:center; gap:4px; padding:3px 10px; background:var(--bg); border:1px solid var(--border); border-radius:20px; font-size:12px; color:var(--text2); }
+  .part-tag button { background:none; border:none; color:var(--text3); cursor:pointer; font-size:14px; line-height:1; padding:0 2px; }
+  .part-tag button:hover { color:var(--red); }
+  .parts-input-row { display:flex; gap:8px; }
+  .parts-input-row .input { flex:1; }
+
+  /* 이미지 업로드 */
+  .img-upload-area {
+    border:2px dashed var(--border); border-radius:var(--radius-sm); padding:20px;
+    text-align:center; cursor:pointer; transition:all 0.15s; background:var(--bg);
+    position:relative;
+  }
+  .img-upload-area:hover { border-color:var(--accent); background:#1c2128; }
+  .img-upload-area.has-img { border-color:var(--green); border-style:solid; padding:0; overflow:hidden; }
+  .img-upload-area input[type=file] { position:absolute; inset:0; opacity:0; cursor:pointer; }
+  .img-preview { width:100%; height:160px; object-fit:cover; display:block; }
+  .img-upload-text { font-size:13px; color:var(--text3); pointer-events:none; }
+  .img-upload-icon { font-size:28px; margin-bottom:8px; display:block; }
+  .img-remove-btn { position:absolute; top:8px; right:8px; background:#0008; border:1px solid var(--border); color:var(--text); border-radius:6px; padding:4px 10px; font-size:12px; cursor:pointer; z-index:10; font-family:'Pretendard',sans-serif; }
+  .img-remove-btn:hover { background:var(--red); border-color:var(--red); }
+
+  /* 버튼 */
+  .btn { padding:10px 22px; font-size:14px; font-weight:600; font-family:'Pretendard',sans-serif; border:none; border-radius:var(--radius-sm); cursor:pointer; transition:all 0.15s; }
+  .btn-primary { background:var(--accent2); color:#fff; }
+  .btn-primary:hover { background:#1a5fcc; }
+  .btn-success { background:#1a3a2a; color:var(--green); border:1px solid var(--green); }
+  .btn-success:hover { background:var(--green); color:#0d1117; }
+  .btn-danger  { background:#3a1a1a; color:var(--red); border:1px solid var(--red); }
+  .btn-danger:hover  { background:var(--red); color:#fff; }
+  .btn-ghost   { background:transparent; color:var(--text2); border:1px solid var(--border); }
+  .btn-ghost:hover   { color:var(--text); border-color:var(--text2); }
+  .btn-sm { padding:5px 12px; font-size:12px; }
+
+  /* 저장된 목록 */
+  .record-list { display:flex; flex-direction:column; gap:8px; max-height:400px; overflow-y:auto; }
+  .record-item { display:flex; align-items:center; gap:12px; padding:10px 14px; background:var(--bg); border:1px solid var(--border2); border-radius:var(--radius-sm); }
+  .record-item:hover { background:#1c2128; }
+  .record-year { font-size:12px; color:var(--text3); min-width:70px; }
+  .record-subjects { flex:1; font-size:13px; }
+  .record-ab { display:flex; gap:8px; }
+  .record-a { color:#79b8ff; font-weight:600; }
+  .record-b { color:#56d364; font-weight:600; }
+  .record-actions { display:flex; gap:6px; }
+
+  /* JSON 내보내기/가져오기 */
+  .io-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .io-card { background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius); padding:16px; }
+  .io-title { font-size:14px; font-weight:600; margin-bottom:8px; }
+  .io-desc { font-size:12px; color:var(--text2); margin-bottom:12px; line-height:1.6; }
+
+  /* 토스트 */
+  #toast { position:fixed; bottom:24px; right:24px; z-index:999; padding:12px 20px; border-radius:var(--radius); font-size:13px; font-weight:600; display:none; box-shadow:0 4px 20px #0008; }
+  #toast.show { display:block; animation:fadeInUp 0.2s ease; }
+  #toast.success { background:#1a3a2a; color:var(--green); border:1px solid var(--green); }
+  #toast.error   { background:#3a1a1a; color:var(--red); border:1px solid var(--red); }
+  #toast.info    { background:#1a2a3a; color:#79b8ff; border:1px solid var(--accent); }
+  @keyframes fadeInUp { from { transform:translateY(10px); opacity:0; } to { transform:translateY(0); opacity:1; } }
+
+  /* 반응형 */
+  @media(max-width:640px) {
+    .ab-form-grid { grid-template-columns:1fr; }
+    .form-row { grid-template-columns:1fr; }
+    .io-grid { grid-template-columns:1fr; }
+    header { padding:20px 16px 16px; }
+    main { padding:20px 16px 40px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div>
+      <div class="header-eyebrow">🔐 관리자 전용</div>
+      <h1>출제 데이터 입력</h1>
+      <div class="header-sub">일반기계기사 실기 작업형 · 2025년 이후 A/B 이중과제 형식</div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <button class="btn btn-success" onclick="exportJSON()">💾 JSON 내보내기</button>
+      <a href="index.html" class="btn btn-ghost">🌐 공개 페이지 보기</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ══ 새 데이터 입력 ══ -->
+  <div class="section-title">✏️ <span id="formTitle">새 출제 기록 입력</span></div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="card-title">기본 정보</span>
+      <span id="editBadge" style="display:none;font-size:12px;padding:3px 10px;background:#3a2d00;color:#f0c060;border:1px solid #6a5200;border-radius:20px">수정 중</span>
+    </div>
+    <div class="card-body">
+      <div class="form-row">
+        <div class="form-group" style="margin-bottom:0">
+          <label>연도 <span class="req">*</span></label>
+          <input class="input" id="fYear" type="number" value="2025" min="2025" max="2099">
+        </div>
+        <div class="form-group" style="margin-bottom:0">
+          <label>회차 <span class="req">*</span></label>
+          <select class="select" id="fRound">
+            <option value="1">1회</option>
+            <option value="2">2회</option>
+            <option value="3">3회</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- A/B 과제 입력 -->
+  <div class="card">
+    <div class="card-head"><span class="card-title">A · B 과제 입력</span></div>
+    <div class="card-body">
+      <div class="ab-form-grid">
+
+        <!-- A과제 -->
+        <div class="ab-form-card">
+          <div class="ab-form-head">
+            <span class="ab-form-label ab-label-a">A</span>
+            <span class="ab-form-title">과제</span>
+          </div>
+          <div class="form-group">
+            <label>과제명 <span class="req">*</span></label>
+            <input class="input" id="fASubject" list="subjectList" placeholder="예: 동력전달장치">
+          </div>
+          <div class="form-group">
+            <label>출제 부품 (2개)</label>
+            <div class="parts-wrap" id="aPartsTags"></div>
+            <div class="parts-input-row">
+              <input class="input" id="aPartInput" placeholder="부품명 입력 후 Enter" onkeydown="addPart('a',event)">
+              <button class="btn btn-ghost btn-sm" onclick="addPart('a',{key:'Enter'})">추가</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>도면 이미지 (WebP, 400×280px 권장)</label>
+            <div class="img-upload-area" id="aImgArea" onclick="document.getElementById('aImgFile').click()">
+              <input type="file" id="aImgFile" accept="image/webp,image/jpeg,image/png" onchange="previewImg('a',this)">
+              <span class="img-upload-icon">🖼️</span>
+              <div class="img-upload-text">클릭하여 이미지 선택<br><span style="font-size:11px;color:var(--text3)">WebP · JPG · PNG</span></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>메모 (선택)</label>
+            <textarea class="textarea" id="fAMemo" placeholder="특이사항, 출제 경향 등"></textarea>
+          </div>
+        </div>
+
+        <!-- B과제 -->
+        <div class="ab-form-card">
+          <div class="ab-form-head">
+            <span class="ab-form-label ab-label-b">B</span>
+            <span class="ab-form-title">과제</span>
+          </div>
+          <div class="form-group">
+            <label>과제명 <span class="req">*</span></label>
+            <input class="input" id="fBSubject" list="subjectList" placeholder="예: 드릴지그">
+          </div>
+          <div class="form-group">
+            <label>출제 부품 (2개)</label>
+            <div class="parts-wrap" id="bPartsTags"></div>
+            <div class="parts-input-row">
+              <input class="input" id="bPartInput" placeholder="부품명 입력 후 Enter" onkeydown="addPart('b',event)">
+              <button class="btn btn-ghost btn-sm" onclick="addPart('b',{key:'Enter'})">추가</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>도면 이미지 (WebP, 400×280px 권장)</label>
+            <div class="img-upload-area" id="bImgArea" onclick="document.getElementById('bImgFile').click()">
+              <input type="file" id="bImgFile" accept="image/webp,image/jpeg,image/png" onchange="previewImg('b',this)">
+              <span class="img-upload-icon">🖼️</span>
+              <div class="img-upload-text">클릭하여 이미지 선택<br><span style="font-size:11px;color:var(--text3)">WebP · JPG · PNG</span></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>메모 (선택)</label>
+            <textarea class="textarea" id="fBMemo" placeholder="특이사항, 출제 경향 등"></textarea>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 버튼 -->
+      <div style="display:flex;gap:10px;margin-top:6px;justify-content:flex-end">
+        <button class="btn btn-ghost" id="cancelEditBtn" style="display:none" onclick="cancelEdit()">취소</button>
+        <button class="btn btn-primary" onclick="submitRecord()">
+          <span id="submitBtnText">➕ 추가하기</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ 저장된 목록 ══ -->
+  <div class="section-title" style="margin-top:32px">📋 입력된 목록</div>
+  <div class="card">
+    <div class="card-head">
+      <span class="card-title">2025년 이후 기록</span>
+      <span id="abRecordCount" style="font-size:12px;color:var(--text3)">0건</span>
+    </div>
+    <div class="card-body">
+      <div class="record-list" id="recordList">
+        <div style="text-align:center;color:var(--text3);padding:24px;font-size:13px">입력된 기록이 없습니다.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ JSON 관리 ══ -->
+  <div class="section-title" style="margin-top:32px">🗂️ 데이터 파일 관리</div>
+  <div class="io-grid">
+    <div class="io-card">
+      <div class="io-title">💾 JSON 내보내기</div>
+      <div class="io-desc">현재 입력된 모든 데이터를 <code>data.json</code> 파일로 다운로드합니다.<br>다운로드 후 GitHub에 업로드하면 공개 페이지에 반영됩니다.</div>
+      <button class="btn btn-success" onclick="exportJSON()">data.json 다운로드</button>
+    </div>
+    <div class="io-card">
+      <div class="io-title">📂 JSON 불러오기</div>
+      <div class="io-desc">기존 <code>data.json</code> 파일을 불러와서 이어서 작업합니다.<br>브라우저를 새로 열었을 때 기존 데이터를 복원합니다.</div>
+      <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(this)">
+      <button class="btn btn-ghost" onclick="document.getElementById('importFile').click()">data.json 불러오기</button>
+    </div>
+  </div>
+
+  <!-- GitHub 업로드 안내 -->
+  <div class="card" style="margin-top:20px">
+    <div class="card-head"><span class="card-title">GitHub 업로드 방법</span></div>
+    <div class="card-body" style="font-size:13px;color:var(--text2);line-height:2">
+      <ol style="padding-left:20px">
+        <li>위의 <strong style="color:var(--green)">data.json 다운로드</strong> 버튼 클릭</li>
+        <li><a href="https://github.com/153LAB/meche-exam" target="_blank" style="color:var(--accent)">github.com/153LAB/meche-exam</a> 접속</li>
+        <li><strong>data.json</strong> 파일 클릭 → 우측 상단 연필(✏️) 아이콘 클릭</li>
+        <li>다운로드한 파일 내용을 붙여넣기 → <strong>Commit changes</strong> 클릭</li>
+        <li>약 1~2분 후 <a href="https://153lab.github.io/meche-exam" target="_blank" style="color:var(--accent)">공개 페이지</a>에 반영됩니다</li>
+      </ol>
+    </div>
+  </div>
+
+</main>
+
+<!-- 자동완성 데이터 -->
+<datalist id="subjectList">
+  <option value="동력전달장치"><option value="드릴지그"><option value="클램프">
+  <option value="편심왕복장치"><option value="바이스"><option value="베어링장치">
+  <option value="V벨트전동장치"><option value="베어링 하우징"><option value="스윌레버">
+  <option value="편심구동장치"><option value="기어펌프"><option value="핀치 롤러">
+  <option value="공기압축기"><option value="리밍지그"><option value="회전속 받침대">
+  <option value="소형닥상그라인더"><option value="벨트 드라이브"><option value="V벨트긴장장치">
+  <option value="기어박스"><option value="C형 슬라이더"><option value="로터리 펌프">
+  <option value="요동장치"><option value="전동장치"><option value="피벗베어링하우징">
+  <option value="기어풀리드라이브"><option value="이중 V벨드풀리"><option value="머신 클램프">
+  <option value="C형 클램프"><option value="로타리 오일펌프"><option value="기어 드라이브">
+</datalist>
+
+<div id="toast"></div>
+
+<script>
+// ── 상태 ────────────────────────────────────────────────────
+let state = {
+  ab_records: [],
+  nextId: 1,
+  editId: null,
+  aParts: [], bParts: [],
+  aImgData: null, bImgData: null,
+};
+
+// ── 초기화 ───────────────────────────────────────────────────
+window.onload = () => {
+  const saved = localStorage.getItem('meche_admin_v1');
+  if (saved) {
+    try {
+      const d = JSON.parse(saved);
+      state.ab_records = d.ab_records || [];
+      state.nextId = (d.nextId || state.ab_records.length) + 1;
+    } catch(e) {}
+  }
+  renderList();
+};
+
+function saveLocal() {
+  localStorage.setItem('meche_admin_v1', JSON.stringify({ ab_records: state.ab_records, nextId: state.nextId }));
+}
+
+// ── 부품 태그 ─────────────────────────────────────────────────
+function addPart(side, e) {
+  if (e.key !== 'Enter') return;
+  const input = document.getElementById(side + 'PartInput');
+  const val = input.value.trim();
+  if (!val) return;
+  state[side + 'Parts'].push(val);
+  input.value = '';
+  renderPartTags(side);
+}
+
+function removePart(side, idx) {
+  state[side + 'Parts'].splice(idx, 1);
+  renderPartTags(side);
+}
+
+function renderPartTags(side) {
+  const wrap = document.getElementById(side + 'PartsTags');
+  wrap.innerHTML = state[side + 'Parts'].map((p, i) =>
+    `<div class="part-tag">${p}<button onclick="removePart('${side}',${i})">×</button></div>`
+  ).join('');
+}
+
+// ── 이미지 미리보기 ───────────────────────────────────────────
+function previewImg(side, input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    state[side + 'ImgData'] = e.target.result;
+    const area = document.getElementById(side + 'ImgArea');
+    area.innerHTML = `
+      <img class="img-preview" src="${e.target.result}" alt="미리보기">
+      <button class="img-remove-btn" onclick="removeImg('${side}',event)">✕ 삭제</button>
+      <input type="file" id="${side}ImgFile" accept="image/webp,image/jpeg,image/png" onchange="previewImg('${side}',this)" style="display:none">
+    `;
+    area.classList.add('has-img');
+    area.onclick = null;
+  };
+  reader.readAsDataURL(file);
+}
+
+function removeImg(side, e) {
+  e.stopPropagation();
+  state[side + 'ImgData'] = null;
+  const area = document.getElementById(side + 'ImgArea');
+  area.classList.remove('has-img');
+  area.innerHTML = `
+    <input type="file" id="${side}ImgFile" accept="image/webp,image/jpeg,image/png" onchange="previewImg('${side}',this)">
+    <span class="img-upload-icon">🖼️</span>
+    <div class="img-upload-text">클릭하여 이미지 선택<br><span style="font-size:11px;color:var(--text3)">WebP · JPG · PNG</span></div>
+  `;
+  area.onclick = () => document.getElementById(side + 'ImgFile').click();
+}
+
+// ── 제출 ─────────────────────────────────────────────────────
+function submitRecord() {
+  const year = parseInt(document.getElementById('fYear').value);
+  const round = parseInt(document.getElementById('fRound').value);
+  const aSubj = document.getElementById('fASubject').value.trim();
+  const bSubj = document.getElementById('fBSubject').value.trim();
+
+  if (!aSubj || !bSubj) { showToast('A·B 과제명을 모두 입력하세요', 'error'); return; }
+  if (year < 2025) { showToast('2025년 이후 데이터만 입력 가능합니다', 'error'); return; }
+
+  const record = {
+    id: state.editId ?? state.nextId++,
+    year, round,
+    a_subject: aSubj,
+    a_parts: [...state.aParts],
+    a_image: state.aImgData,
+    a_memo: document.getElementById('fAMemo').value.trim(),
+    b_subject: bSubj,
+    b_parts: [...state.bParts],
+    b_image: state.bImgData,
+    b_memo: document.getElementById('fBMemo').value.trim(),
+  };
+
+  if (state.editId !== null) {
+    const idx = state.ab_records.findIndex(r => r.id === state.editId);
+    if (idx !== -1) state.ab_records[idx] = record;
+    showToast('수정되었습니다', 'success');
+    cancelEdit();
+  } else {
+    state.ab_records.push(record);
+    showToast(`${year}년 ${round}회 기록이 추가되었습니다!`, 'success');
+    resetForm();
+  }
+
+  saveLocal();
+  renderList();
+}
+
+function resetForm() {
+  document.getElementById('fASubject').value = '';
+  document.getElementById('fBSubject').value = '';
+  document.getElementById('fAMemo').value = '';
+  document.getElementById('fBMemo').value = '';
+  state.aParts = []; state.bParts = [];
+  state.aImgData = null; state.bImgData = null;
+  renderPartTags('a'); renderPartTags('b');
+  ['a','b'].forEach(s => removeImg(s, { stopPropagation: ()=>{} }));
+}
+
+function cancelEdit() {
+  state.editId = null;
+  document.getElementById('formTitle').textContent = '새 출제 기록 입력';
+  document.getElementById('editBadge').style.display = 'none';
+  document.getElementById('cancelEditBtn').style.display = 'none';
+  document.getElementById('submitBtnText').textContent = '➕ 추가하기';
+  resetForm();
+}
+
+// ── 수정/삭제 ─────────────────────────────────────────────────
+function editRecord(id) {
+  const r = state.ab_records.find(x => x.id === id);
+  if (!r) return;
+  state.editId = id;
+  document.getElementById('fYear').value = r.year;
+  document.getElementById('fRound').value = r.round;
+  document.getElementById('fASubject').value = r.a_subject;
+  document.getElementById('fBSubject').value = r.b_subject;
+  document.getElementById('fAMemo').value = r.a_memo || '';
+  document.getElementById('fBMemo').value = r.b_memo || '';
+  state.aParts = [...(r.a_parts || [])];
+  state.bParts = [...(r.b_parts || [])];
+  state.aImgData = r.a_image || null;
+  state.bImgData = r.b_image || null;
+  renderPartTags('a'); renderPartTags('b');
+
+  ['a','b'].forEach(s => {
+    const area = document.getElementById(s + 'ImgArea');
+    const img = state[s + 'ImgData'];
+    if (img) {
+      area.classList.add('has-img');
+      area.innerHTML = `<img class="img-preview" src="${img}" alt="미리보기"><button class="img-remove-btn" onclick="removeImg('${s}',event)">✕ 삭제</button><input type="file" id="${s}ImgFile" accept="image/webp,image/jpeg,image/png" onchange="previewImg('${s}',this)" style="display:none">`;
+      area.onclick = null;
+    }
+  });
+
+  document.getElementById('formTitle').textContent = `${r.year}년 ${r.round}회 수정`;
+  document.getElementById('editBadge').style.display = 'inline';
+  document.getElementById('cancelEditBtn').style.display = 'inline';
+  document.getElementById('submitBtnText').textContent = '💾 수정 저장';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function deleteRecord(id) {
+  if (!confirm('이 기록을 삭제할까요?')) return;
+  state.ab_records = state.ab_records.filter(r => r.id !== id);
+  saveLocal();
+  renderList();
+  showToast('삭제되었습니다', 'info');
+}
+
+// ── 목록 렌더 ─────────────────────────────────────────────────
+function renderList() {
+  const list = document.getElementById('recordList');
+  document.getElementById('abRecordCount').textContent = state.ab_records.length + '건';
+  if (!state.ab_records.length) {
+    list.innerHTML = '<div style="text-align:center;color:var(--text3);padding:24px;font-size:13px">입력된 기록이 없습니다.</div>';
+    return;
+  }
+  const sorted = [...state.ab_records].sort((a,b) => b.year - a.year || b.round - a.round);
+  list.innerHTML = sorted.map(r => `
+    <div class="record-item">
+      <span class="record-year">${r.year}년 ${r.round}회</span>
+      <div class="record-subjects">
+        <span class="record-a">A. ${r.a_subject}</span>
+        <span style="color:var(--text3);margin:0 6px">/</span>
+        <span class="record-b">B. ${r.b_subject}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px">
+        ${r.a_image ? '<span style="font-size:11px;color:var(--green)">🖼A</span>' : ''}
+        ${r.b_image ? '<span style="font-size:11px;color:var(--green)">🖼B</span>' : ''}
+      </div>
+      <div class="record-actions">
+        <button class="btn btn-ghost btn-sm" onclick="editRecord(${r.id})">✏️</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteRecord(${r.id})">🗑</button>
+      </div>
+    </div>`).join('');
+}
+
+// ── JSON 내보내기 ─────────────────────────────────────────────
+async function exportJSON() {
+  // 기존 data.json 구조 유지하면서 ab_records만 교체
+  let base = { meta: { title:"일반기계기사 실기 작업형 출제현황", updated: new Date().toISOString().slice(0,10), note:"2024년까지 단일과제 / 2025년부터 A/B 이중과제" }, records: [], ab_records: [] };
+  try {
+    const res = await fetch('data.json');
+    const existing = await res.json();
+    base.records = existing.records || [];
+  } catch(e) {}
+
+  base.ab_records = state.ab_records;
+  base.meta.updated = new Date().toISOString().slice(0, 10);
+
+  const blob = new Blob([JSON.stringify(base, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'data.json';
+  a.click();
+  showToast('data.json 다운로드 완료!', 'success');
+}
+
+// ── JSON 불러오기 ─────────────────────────────────────────────
+function importJSON(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const d = JSON.parse(e.target.result);
+      state.ab_records = d.ab_records || [];
+      state.nextId = Math.max(0, ...state.ab_records.map(r => r.id)) + 1;
+      saveLocal();
+      renderList();
+      showToast('데이터를 불러왔습니다 (' + state.ab_records.length + '건)', 'success');
+    } catch(err) {
+      showToast('JSON 파일 형식이 올바르지 않습니다', 'error');
+    }
+  };
+  reader.readAsText(file);
+}
+
+// ── 토스트 ────────────────────────────────────────────────────
+function showToast(msg, type='success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'show ' + type;
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove('show'), 2500);
+}
+</script>
+</body>
+</html>
